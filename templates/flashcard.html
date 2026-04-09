@@ -1,0 +1,24 @@
+<div class="card" id="card-{{ card.id }}">
+    <strong>Frente:</strong>
+    <div class="clamped-text" 
+         style="white-space: pre-wrap; word-break: break-word; margin-bottom: 15px; cursor: pointer;" 
+         onclick="this.classList.toggle('clamped-text')" 
+         title="Clique para expandir/diminuir">{{ card.front }}</div>
+    <strong>Verso:</strong>
+    <div class="clamped-text" 
+         style="white-space: pre-wrap; word-break: break-word; margin-bottom: 15px; cursor: pointer;" 
+         onclick="this.classList.toggle('clamped-text')" 
+         title="Clique para expandir/diminuir">{{ card.back }}</div>
+    <p style="font-size: 0.9rem; color: #a0a0a0;">
+        Próxima revisão: <strong>{{ card.formatted_next_review }}</strong>
+    </p>
+    
+    <button hx-get="/flashcards/{{ card.id }}/edit" 
+            hx-target="#card-{{ card.id }}" 
+            hx-swap="outerHTML">Editar</button>
+            
+    <button hx-delete="/flashcards/{{ card.id }}" 
+            hx-target="#card-{{ card.id }}" 
+            hx-swap="outerHTML"
+            hx-confirm="Tem certeza que deseja deletar este flashcard?">Deletar</button>
+</div>

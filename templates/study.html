@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<a href="/">&larr; Decks</a>
+<h1>Estudar: {{ deck.name }}</h1>
+
+{% if card %}
+    {% include "study_front.html" %}
+{% else %}
+    <div class="card">
+        <h2>Fim!</h2>
+        <p>Não há mais flashcards a revisar neste deck hoje.</p>
+        <a href="/"><button>Home</button></a>
+    </div>
+{% endif %}
+{% endblock %}

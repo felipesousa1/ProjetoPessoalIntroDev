@@ -1,0 +1,31 @@
+{% for card in flashcards %}
+    {% include "flashcard.html" %}
+{% else %}
+    <p>Nenhum flashcard encontrado.</p>
+{% endfor %}
+
+<div style="display: flex; align-items: center; justify-content: space-between; margin-top: 20px;">
+    <div style="flex: 1; text-align: left;">
+        {% if page > 1 %}
+            <button type="button" 
+                    hx-get="/decks/{{ deck_id }}/flashcards?page={{ page - 1 }}" 
+                    hx-include="[name='q']" 
+                    hx-target="#flashcards-list">Anterior</button>
+        {% endif %}
+    </div>
+    
+    <div style="flex: 1; text-align: center; font-weight: bold;">
+        {% if flashcards %}
+            {{ page }} / {{ total_pages }}
+        {% endif %}
+    </div>
+    
+    <div style="flex: 1; text-align: right;">
+        {% if has_next %}
+            <button type="button" 
+                    hx-get="/decks/{{ deck_id }}/flashcards?page={{ page + 1 }}" 
+                    hx-include="[name='q']" 
+                    hx-target="#flashcards-list">Próxima</button>
+        {% endif %}
+    </div>
+</div>

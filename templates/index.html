@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card">
+    <h3>Novo Deck</h3>
+    <form action="/decks" method="POST">
+        <input type="text" name="name" placeholder="Nome do Deck" required style=width:25%>
+        <input type="submit" value="Criar">
+    </form>
+</div>
+
+<h2>Seus Decks</h2>
+
+    <input type="search" 
+    name="q" 
+    placeholder="Buscar deck..." 
+    hx-get="/decks_list" 
+    hx-trigger="input changed delay:500ms" 
+    hx-target="#decks-list-container"
+    style="margin-bottom: 15px; width: 20%; box-sizing: border-box;">
+    
+    <div id="decks-list-container">
+        {% include "deck_list.html" %}
+    </div>
+    
+{% endblock %}

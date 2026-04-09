@@ -1,0 +1,42 @@
+<div>
+    {% for deck in decks %}
+    <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 10px; border: 1px solid var(--border-color); border-radius: 4px; background-color: #1e1e1e;">
+        
+        <a href="/decks/{{ deck.id }}" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-right: 15px; flex-grow: 1;">
+            {{ deck.name }}
+        </a>
+        
+        <a href="/study/{{ deck.id }}" style="flex-shrink: 0;">
+            <button>Estudar</button>
+        </a>
+    </li>
+    {% else %}
+        <p>Nenhum deck encontrado.</p>
+    {% endfor %}
+</div>
+
+<div style="display: flex; justify-content: space-between; margin-top: 20px;">
+ <div style="flex: 1; text-align: left;">
+        {% if page > 1 %}
+            <button type="button" 
+                    hx-get="/decks_list?page={{ page - 1 }}" 
+                    hx-include="[name='q']" 
+                    hx-target="#decks-list-container">Anterior</button>
+        {% endif %}
+    </div>
+    
+    <div style="flex: 1; text-align: center; font-weight: bold;">
+        {% if decks %}
+            {{ page }} / {{ total_pages }}
+        {% endif %}
+    </div>
+    
+    <div style="flex: 1; text-align: right;">
+        {% if has_next %}
+            <button type="button" 
+                    hx-get="/decks_list?page={{ page + 1 }}" 
+                    hx-include="[name='q']" 
+                    hx-target="#decks-list-container">Próxima</button>
+        {% endif %}
+    </div>
+</div>

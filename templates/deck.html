@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<a href="/">&larr; Decks</a>
+<div style="display: flex; justify-content: space-between; align-items: center;">
+    <h1>Deck: {{ deck.name }}</h1>
+    
+    <button style="background-color: #d32f2f;" 
+            hx-delete="/decks/{{ deck.id }}" 
+            hx-confirm="Tem certeza que deseja deletar este deck e todos os seus flashcards?">
+        Deletar Deck
+    </button>
+</div>
+
+<div class="card">
+    <h2>Adicionar flashcard</h2>
+        <form hx-post="/flashcards" 
+          hx-swap="none"
+          hx-on:flashcards-changed="this.reset(); this.querySelectorAll('textarea').forEach(t => t.style.height = '');">
+        <input type="hidden" name="deck_id" value="{{ deck.id }}">
+        
+        <textarea name="front" placeholder="Frente" required 
+          style="min-height: 60px;"
+          oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'"></textarea>
+          
+        <textarea name="back" placeholder="Verso" required 
+          style="min-height: 100px;"
+          oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'"></textarea>
+        
+        <br>
+        <input type="submit" value="Adicionar">
+    </form>
+</div>
+
+<h2>Flashcards</h2>
+<input type="text" 
+       name="q" 
+       placeholder="Busque por frente ou verso..." 
+       hx-get="/decks/{{ deck.id }}/flashcards"
+       hx-trigger="input changed delay:500ms"
+       hx-target="#flashcards-list"
+       style="margin-bottom: 15px; width: 100%; box-sizing: border-box;">
+
+<div id="flashcards-list"
+     hx-get="/decks/{{ deck.id }}/flashcards"
+     hx-trigger="flashcards-changed from:body"
+     hx-include="[name='q']">
+    {% include "flashcard_list.html" %}
+</div>
+{% endblock %}

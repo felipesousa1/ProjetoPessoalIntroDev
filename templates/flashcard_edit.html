@@ -1,0 +1,19 @@
+<div class="card" id="card-{{ card.id }}">
+    <form hx-put="/flashcards/{{ card.id }}" 
+          hx-target="#card-{{ card.id }}" 
+          hx-swap="outerHTML">
+        
+        <textarea name="front" required 
+            oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'">{{ card.front }}</textarea>
+                  
+        <textarea name="back" required 
+            oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'">{{ card.back }}</textarea>       
+        
+        <input type="submit" value="Salvar">
+        
+        <button type="button" 
+                hx-get="/flashcards/{{ card.id }}" 
+                hx-target="#card-{{ card.id }}" 
+                hx-swap="outerHTML">Cancelar</button>
+    </form>
+</div>

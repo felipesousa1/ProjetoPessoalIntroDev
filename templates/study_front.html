@@ -1,0 +1,10 @@
+<div class="card" id="study-card-container">
+    <h2>Frente:</h2>
+    <p style="font-size: 1.5rem; white-space: pre-wrap;">{{ card.front }}</p>    
+    
+    <button hx-get="/study/card/{{ card.id }}/back" 
+            hx-target="#study-card-container" 
+            hx-swap="outerHTML">
+        Mostrar resposta
+    </button>
+</div>
